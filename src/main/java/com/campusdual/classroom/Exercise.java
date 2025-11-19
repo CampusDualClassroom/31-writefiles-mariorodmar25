@@ -2,13 +2,24 @@ package com.campusdual.classroom;
 
 import com.campusdual.Utils;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 public class Exercise {
 
     public static void main(String[] args) {
-
+        String nuevotexto = Exercise.generateStringToSave(null);
+        Exercise.printToFile(nuevotexto);
     }
 
     public static String generateStringToSave(String string) {
+        if(string != null){
+            return string;
+        }else{
+            return Exercise.generateUserInputToSave();
+        }
 
     }
 
@@ -23,6 +34,15 @@ public class Exercise {
     }
 
     public static void printToFile(String string) {
+        File dir = new File ("src/main/resources");
+        if (!dir.exists()){
+            dir.mkdir();
+        }
+        try(BufferedWriter bw = new BufferedWriter(new PrintWriter("src/main/resources/data.txt"))){
+            bw.write(string);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
